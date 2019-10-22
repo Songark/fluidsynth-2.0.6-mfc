@@ -366,6 +366,22 @@ int CfluidsynthWrapper::settempo(int ntempo)
 	return 0;
 }
 
+double CfluidsynthWrapper::getvolume()
+{
+	fluid_settings_getnum(settings, "synth.gain", &first_volume);
+	return first_volume;
+}
+
+int CfluidsynthWrapper::setvolume(double dbvolume)
+{
+	if (settings) {
+		fluid_settings_setnum(settings, "synth.gain", dbvolume);
+		return 1;
+	}
+	return 0;
+}
+
+
 int CfluidsynthWrapper::gettickscount()
 {
 	if (player) {

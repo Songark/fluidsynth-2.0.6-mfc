@@ -61,4 +61,5 @@ public:
 	afx_msg void OnBnClickedBtnFor();
 	afx_msg void OnBnClickedBtnCheckall();
 	afx_msg void OnBnClickedBtnUncheckall();
+	double m_dbCurVolume;
 };

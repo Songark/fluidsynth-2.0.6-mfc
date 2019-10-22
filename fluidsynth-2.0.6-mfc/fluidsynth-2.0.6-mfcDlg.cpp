@@ -53,6 +53,7 @@ Cfluidsynth206mfcDlg::Cfluidsynth206mfcDlg(CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_FLUIDSYNTH206MFC_DIALOG, pParent)
 	, m_nMaxMeasure(0)
 	, m_nCurTicks(0)
+	, m_dbCurVolume(0)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
@@ -66,6 +67,8 @@ void Cfluidsynth206mfcDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_SLIDER3, m_octabSlider);
 	DDX_Control(pDX, IDC_SLIDER1, m_midiSlider);
 	DDX_Text(pDX, IDC_EDIT4, m_nCurTicks);
+	DDX_Text(pDX, IDC_EDIT5, m_dbCurVolume);
+	DDV_MinMaxDouble(pDX, m_dbCurVolume, 0.0, 10.0);
 }
 
 BEGIN_MESSAGE_MAP(Cfluidsynth206mfcDlg, CDialogEx)
@@ -130,8 +133,8 @@ BOOL Cfluidsynth206mfcDlg::OnInitDialog()
 	m_tempoSlider.SetRange(-10, 10, TRUE);
 	m_tempoSlider.SetPos(0);
 
-	m_octabSlider.SetRange(-10, 10, TRUE);
-	m_octabSlider.SetPos(0);	
+	m_octabSlider.SetRange(0, 100, TRUE);
+	m_octabSlider.SetPos(2);	
 
 	ptimesig = TimeSignature::GetInstance();
 
@@ -331,6 +334,10 @@ void Cfluidsynth206mfcDlg::OnTimer(UINT_PTR nIDEvent)
 			else
 				fluidsynth_wrapper.setfilter(nIndex, false);
 		}		
+		m_dbCurVolume = fluidsynth_wrapper.getvolume();
+		double dbnewvolume = (double)m_octabSlider.GetPos() / 10.0f;
+		fluidsynth_wrapper.setvolume(dbnewvolume);
+
 		m_nCurTicks = ptimesig->get_tick2measure(fluidsynth_wrapper.getcurrentticks());
 		m_nMaxMeasure = ptimesig->get_tick2measure(fluidsynth_wrapper.gettickscount());
 		m_midiSlider.SetRange(0, m_nMaxMeasure, TRUE);

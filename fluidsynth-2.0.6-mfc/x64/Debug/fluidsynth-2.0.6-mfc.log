@@ -1,4 +1,10 @@
-﻿  MidiFile.cpp
+﻿  stdafx.cpp
+  CfluidsynthWrapper.cpp
+  MidiEvent.cpp
+  MidiFile.cpp
+  MidiMessage.cpp
+  MidiTrack.cpp
+  TimeSignature.cpp
   fluidsynth-2.0.6-mfc.cpp
   fluidsynth-2.0.6-mfcDlg.cpp
   Generating Code...

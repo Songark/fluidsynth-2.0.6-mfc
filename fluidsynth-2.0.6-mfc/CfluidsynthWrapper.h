@@ -36,6 +36,8 @@ public:
 	void seek(int ticks);
 	int gettempo();
 	int settempo(int ntempo);
+	double getvolume();
+	int setvolume(double dbvolume);
 	int gettickscount();
 	int getcurrentticks();
 
@@ -57,6 +59,7 @@ private:
 	int dump;
 	int fast_render;
 	int first_tempo;
+	double first_volume;
 
 	string strmidi;
 	string strsf2;
